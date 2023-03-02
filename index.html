@@ -18,6 +18,7 @@
             left: 0;
             top: 0;
             overflow: auto;
+            padding: 20px;
         }
 
         #box0 {
@@ -99,6 +100,19 @@
             top: 50px;
             transform: translateX(-50%);
         }
+
+        .customInfoBox {
+            position: absolute;
+            z-index: 99999;
+            display: none;
+            background-color: #fff;
+            padding: 100px;
+            border-radius: 5px;
+        }
+
+        .customInfoTitle {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -118,20 +132,36 @@
         <div id="box6"></div>
         <button id="start">开始</button>
     </div>
-    <script src="./noviceGuide.js"></script>
-    <script>
-        let noviceGuide = new NoviceGuide({
+    <div class="customInfoBox">
+        <div class="customInfoTitle"></div>
+        <button data-type="prev">上一步</button>
+        <button data-type="next">下一步</button>
+        <button data-type="done">关闭</button>
+    </div>
+    <script src="./dist/dist.js"></script>
+    <script type="module">
+        // 自定义信息框
+        const customInfoBoxEl = document.querySelector('.customInfoBox')
+        const customInfoTitleEl = document.querySelector('.customInfoTitle')
+        let noviceGuide = new SimpleNoviceGuide({
+            useCustomInfo: false,
+            getCustomInfoEl: async (step) => {
+                customInfoTitleEl.textContent = step.text
+                return document.querySelector('.customInfoBox')
+            },
             steps: [{
                     element: "#box4",
+                    title: '我是标题',
                     text: "第一步",
                 },
                 {
                     element: "#box6",
+                    title: '我是长标题长标题长标题长标题长标题长标题长标题长标题长标题',
                     text: "第二步",
                 },
                 {
                     element: "#box0",
-                    text: "第三步",
+                    text: "我是很长很长的文字我是很长很长的文字我是很长很长的文字我是很长很长的文字我是很长很长的文字我是很长很长的文字我是很长很长的文字我是很长很长的文字我是很长很长的文字我是很长很长的文字",
                 },
                 {
                     text: "我是纯文字哦",
@@ -149,6 +179,30 @@
         })
         document.querySelector('#start').addEventListener('click', () => {
             noviceGuide.start()
+            if (noviceGuide.options.useCustomInfo) {
+                customInfoBoxEl.style.display = 'block'
+            }
+        })
+        customInfoBoxEl.addEventListener('click', (e) => {
+            let type = e.target.getAttribute('data-type')
+            switch (type) {
+                case 'prev':
+                    noviceGuide.prev()
+                    break;
+                case 'next':
+                    noviceGuide.next()
+                    break;
+                case 'done':
+                    noviceGuide.done()
+                    break;
+                default:
+                    break;
+            }
+        })
+        noviceGuide.on('done', () => {
+            if (noviceGuide.options.useCustomInfo) {
+                customInfoBoxEl.style.display = 'none'
+            }
         })
     </script>
 </body>

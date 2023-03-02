@@ -18,11 +18,13 @@
         "url": "https://github.com/wanglin2/simple-novice-guide"
     },
     "scripts": {
+        "tsc": "tsc --watch",
+        "build": "rollup -c -w",
         "lint": "eslint src/",
         "format": "prettier --write ."
     },
-    "module": "index.js",
-    "main": "index.js",
+    "module": "dist/index.js",
+    "main": "dist/dist.min.js",
     "dependencies": {
         "eventemitter3": "^4.0.7"
     },
@@ -32,6 +34,11 @@
     ],
     "devDependencies": {
         "eslint": "^8.25.0",
-        "prettier": "^2.7.1"
+        "prettier": "^2.7.1",
+        "rollup": "^3.18.0",
+        "rollup-plugin-commonjs": "^10.1.0",
+        "rollup-plugin-node-resolve": "^5.2.0",
+        "rollup-plugin-terser": "^7.0.2",
+        "typescript": "^4.9.5"
     }
 }
