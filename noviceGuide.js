@@ -69,6 +69,7 @@ class NoviceGuide {
   done() {
     document.body.removeChild(this.highlightEl)
     document.body.removeChild(this.infoEl)
+    this.currentStepIndex = -1
   }
 
   getScrollAncestor(el) {

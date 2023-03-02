@@ -92,6 +92,13 @@
             height: 100px;
             border: 2px solid lightseagreen;
         }
+
+        #start {
+            position: fixed;
+            left: 50%;
+            top: 50px;
+            transform: translateX(-50%);
+        }
     </style>
 </head>
 
@@ -109,38 +116,40 @@
             </div>
         </div>
         <div id="box6"></div>
+        <button id="start">开始</button>
     </div>
     <script src="./noviceGuide.js"></script>
     <script>
-        setTimeout(() => {
-            new NoviceGuide({
-                steps: [{
-                        element: "#box4",
-                        text: "第一步",
-                    },
-                    {
-                        element: "#box6",
-                        text: "第二步",
-                    },
-                    {
-                        element: "#box0",
-                        text: "第三步",
-                    },
-                    {
-                        text: "我是纯文字哦",
-                        img: 'https://img1.baidu.com/it/u=193079279,2402542303&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500'
-                    },
-                    {
-                        element: "#box5",
-                        text: "第四步",
-                    },
-                    {
-                        element: "#box9",
-                        text: "第五步",
-                    },
-                ],
-            }).start();
-        }, 3000);
+        let noviceGuide = new NoviceGuide({
+            steps: [{
+                    element: "#box4",
+                    text: "第一步",
+                },
+                {
+                    element: "#box6",
+                    text: "第二步",
+                },
+                {
+                    element: "#box0",
+                    text: "第三步",
+                },
+                {
+                    text: "我是纯文字哦",
+                    img: 'https://img1.baidu.com/it/u=193079279,2402542303&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500'
+                },
+                {
+                    element: "#box5",
+                    text: "第四步",
+                },
+                {
+                    element: "#box9",
+                    text: "第五步",
+                },
+            ],
+        })
+        document.querySelector('#start').addEventListener('click', () => {
+            noviceGuide.start()
+        })
     </script>
 </body>
 
