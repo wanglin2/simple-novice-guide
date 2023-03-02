@@ -1,0 +1,8 @@
+*/.DS_Store
+dist
+node_modules
+*.json
+*.md
+.eslintrc.js
+.prettierignore
+.prettierrc

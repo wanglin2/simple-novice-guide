@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./introjs.css" />
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        #box {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow: auto;
+        }
+
+        #box0 {
+            width: 500px;
+            height: 300px;
+            border: 2px solid navajowhite;
+            margin-bottom: 20px;
+        }
+
+        #box1 {
+            width: 1000px;
+            height: 1000px;
+            border: 2px solid aqua;
+            margin-bottom: 20px;
+        }
+
+        #box2 {
+            width: 1000px;
+            height: 500px;
+            overflow: auto;
+            border: 2px solid blueviolet;
+            padding: 20px;
+        }
+
+        #box3 {
+            width: 90%;
+            height: 1000px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            margin-top: 300px;
+            border: 2px solid darkviolet;
+        }
+
+        #box4 {
+            width: 90%;
+            height: 200px;
+            margin: 0 auto;
+            border: 2px solid coral;
+        }
+
+        #box5 {
+            width: 90%;
+            height: 400px;
+            margin: 0 auto;
+            border: 2px solid lime;
+        }
+
+        #box6 {
+            width: 200px;
+            height: 400px;
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            border: 2px solid salmon;
+        }
+
+        #box7 {
+            width: 90%;
+            height: 400px;
+            border: 2px solid darkgreen;
+            overflow: auto;
+        }
+
+        #box8 {
+            width: 90%;
+            height: 500px;
+            border: 2px solid tomato;
+        }
+
+        #box9 {
+            width: 90%;
+            height: 100px;
+            border: 2px solid lightseagreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="box0"></div>
+        <div id="box1"></div>
+        <div id="box2">
+            <div id="box3"></div>
+            <div id="box4"></div>
+            <div id="box5"></div>
+            <div id="box7">
+                <div id="box8"></div>
+                <div id="box9"></div>
+            </div>
+        </div>
+        <div id="box6"></div>
+    </div>
+    <script src="./noviceGuide.js"></script>
+    <script>
+        setTimeout(() => {
+            new NoviceGuide({
+                steps: [{
+                        element: "#box4",
+                        text: "第一步",
+                    },
+                    {
+                        element: "#box6",
+                        text: "第二步",
+                    },
+                    {
+                        element: "#box0",
+                        text: "第三步",
+                    },
+                    {
+                        text: "我是纯文字哦",
+                        img: 'https://img1.baidu.com/it/u=193079279,2402542303&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500'
+                    },
+                    {
+                        element: "#box5",
+                        text: "第四步",
+                    },
+                    {
+                        element: "#box9",
+                        text: "第五步",
+                    },
+                ],
+            }).start();
+        }, 3000);
+    </script>
+</body>
+
+</html>
