@@ -56,7 +56,7 @@ class NoviceGuide {
       this.showStepInfo(currentStep)
       return
     }
-    this.scrollParentToElement(currentStep.element)
+    this.scrollAncestorToElement(currentStep.element)
     const rect = currentStep.element.getBoundingClientRect()
     const windowHeight = window.innerHeight
     if (!this.elementIsInView(currentStep.element)) {
@@ -71,36 +71,35 @@ class NoviceGuide {
     document.body.removeChild(this.infoEl)
   }
 
-  getScrollParent(element) {
-    let style = window.getComputedStyle(element)
-    const excludeStaticParent = style.position === 'absolute'
-    const overflowRegex = /(auto|scroll)/
-
-    if (style.position === 'fixed') return document.body
-
-    for (let parent = element; (parent = parent.parentElement); ) {
+  getScrollAncestor(el) {
+    let style = window.getComputedStyle(el)
+    const isAbsolute = style.position === 'absolute'
+    const isFixed = style.position === 'fixed'
+    const reg = /(auto|scroll)/
+    // 如果元素是固定定位，那么可滚动祖先元素为body
+    if (isFixed) return document.body
+    let parent = el.parentElement
+    while (parent) {
       style = window.getComputedStyle(parent)
-      if (excludeStaticParent && style.position === 'static') {
-        continue
+      // 如果是绝对定位，那么可滚动的祖先元素必须是有定位的才行
+      if (!(isAbsolute && style.position === 'static')) {
+        // 如果某个祖先元素的overflow属性为auto或scroll则代表是可滚动的
+        if (reg.test(style.overflow + style.overflowX + style.overflowY)) {
+          return parent
+        }
       }
-      if (
-        overflowRegex.test(style.overflow + style.overflowY + style.overflowX)
-      )
-        return parent
+      parent = parent.parentElement
     }
-
     return document.body
   }
 
-  scrollParentToElement(element) {
-    const parent = this.getScrollParent(element)
+  scrollAncestorToElement(element) {
+    const parent = this.getScrollAncestor(element)
     if (parent === document.body) return
     let parentRect = parent.getBoundingClientRect()
     let rect = element.getBoundingClientRect()
-    if (rect.top > parentRect.bottom || rect.bottom < parentRect.top) {
-      parent.scrollTop = parent.scrollTop + rect.top - parentRect.top
-    }
-    this.scrollParentToElement(parent)
+    parent.scrollTop = parent.scrollTop + rect.top - parentRect.top
+    this.scrollAncestorToElement(parent)
   }
 
   highlightElement(el) {
