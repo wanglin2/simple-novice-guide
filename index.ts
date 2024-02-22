@@ -119,11 +119,7 @@ class NoviceGuide extends EventEmitter {
   initSteps() {
     this.options.steps.forEach(step => {
       this.steps.push({
-        ...step,
-        element:
-          typeof step.element === 'string'
-            ? document.querySelector(step.element)
-            : step.element
+        ...step
       })
     })
   }
@@ -169,6 +165,10 @@ class NoviceGuide extends EventEmitter {
   async to(stepIndex: number) {
     const currentStep = this.steps[stepIndex]
     // 当前步骤没有元素就不用处理滚动
+    currentStep.element =
+      typeof currentStep.element === 'string'
+        ? document.querySelector(currentStep.element)
+        : currentStep.element
     if (currentStep.element) {
       scrollAncestorToElement(currentStep.element)
       const rect = currentStep.element.getBoundingClientRect()
@@ -184,13 +184,11 @@ class NoviceGuide extends EventEmitter {
 
   // 结束
   done() {
-    this.emit('before-step-change', this.currentStepIndex)
     this.highlightElement.removeEl()
     this.infoElement.removeEl()
     removeCss()
     this.addedCss = false
     this.currentStepIndex = -1
-    this.emit('after-step-change', this.currentStepIndex)
     this.emit('done')
   }
 

@@ -99,9 +99,7 @@ var NoviceGuide = (function (_super) {
     NoviceGuide.prototype.initSteps = function () {
         var _this = this;
         this.options.steps.forEach(function (step) {
-            _this.steps.push(__assign(__assign({}, step), { element: typeof step.element === 'string'
-                    ? document.querySelector(step.element)
-                    : step.element }));
+            _this.steps.push(__assign({}, step));
         });
     };
     NoviceGuide.prototype.start = function () {
@@ -140,6 +138,10 @@ var NoviceGuide = (function (_super) {
                 switch (_a.label) {
                     case 0:
                         currentStep = this.steps[stepIndex];
+                        currentStep.element =
+                            typeof currentStep.element === 'string'
+                                ? document.querySelector(currentStep.element)
+                                : currentStep.element;
                         if (currentStep.element) {
                             scrollAncestorToElement(currentStep.element);
                             rect = currentStep.element.getBoundingClientRect();
@@ -159,13 +161,11 @@ var NoviceGuide = (function (_super) {
         });
     };
     NoviceGuide.prototype.done = function () {
-        this.emit('before-step-change', this.currentStepIndex);
         this.highlightElement.removeEl();
         this.infoElement.removeEl();
         removeCss();
         this.addedCss = false;
         this.currentStepIndex = -1;
-        this.emit('after-step-change', this.currentStepIndex);
         this.emit('done');
     };
     NoviceGuide.prototype.isFirstStep = function () {

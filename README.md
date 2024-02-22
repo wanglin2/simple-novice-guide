@@ -135,7 +135,7 @@ const noviceGuide = new SimpleNoviceGuide(options)
 
 
 
-### noviceGuide.jump(*stepIndex*: number)
+### noviceGuide.jump(stepIndex: number)
 
 跳转到指定步骤。
 

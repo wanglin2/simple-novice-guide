@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>simple-novice-guide</title>
     <style>
         body {
             overflow: hidden;
@@ -94,6 +94,15 @@
             border: 2px solid lightseagreen;
         }
 
+        #box10 {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            right: 400px;
+            top: 200px;
+            background-color: lightblue;
+        }
+
         #start {
             position: fixed;
             left: 50%;
@@ -140,6 +149,13 @@
     </div>
     <script src="./dist/dist.js"></script>
     <script type="module">
+        setTimeout(() => {
+            const el = document.createElement('div')
+            el.id = 'box10'
+            el.textContent = '我是2s后动态创建的元素'
+            document.body.appendChild(el)
+        }, 2000);
+
         // 自定义信息框
         const customInfoBoxEl = document.querySelector('.customInfoBox')
         const customInfoTitleEl = document.querySelector('.customInfoTitle')
@@ -175,6 +191,10 @@
                     element: "#box9",
                     text: "第五步",
                 },
+                {
+                    element: "#box10",
+                    text: "最后一步",
+                }
             ],
         })
         document.querySelector('#start').addEventListener('click', () => {
